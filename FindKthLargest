@@ -1,0 +1,44 @@
+Kth Largest Element in an Array
+
+Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+Example 1:
+
+Input: [3,2,1,5,6,4] and k = 2
+Output: 5
+
+Example 2:
+
+Input: [3,2,3,1,2,4,5,5,6] and k = 4
+Output: 4
+
+Time Complexity:O(n.logk) 
+Space Complexity:O(k)
+#Passed all testcases successfully on Leetcode.
+
+
+import heapq
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        if nums == None or len(nums) == 0:
+            return -1
+        peek = []
+        #add all the element till k,idea is to compare the peek element in the heap with the remaining nums[i] to find the
+        #kth  largest value of the 
+        for i in range(0,k):
+            heapq.heappush(peek,nums[i])
+        for i in range(k,len(nums)):
+            minimum = peek[0]
+            #if peek value is less that the nums[i],pop the heap and add the nums[i] in the heap 
+            if minimum < nums[i]:
+                heapq.heappop(peek)
+                heapq.heappush(peek, nums[i])
+        #return the peek of the kth element
+        return peek[0]
+                
+        
